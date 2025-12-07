@@ -220,15 +220,15 @@ const App: React.FC = () => {
 
                     <div className="absolute bottom-4 left-4 right-4 font-mono text-xs text-indigo-300 space-y-1">
                       <div className="flex justify-between">
-                        <span>> DETECT_OBJECTS</span>
+                        <span>&gt; DETECT_OBJECTS</span>
                         <span>[OK]</span>
                       </div>
                       <div className="flex justify-between">
-                         <span>> OCR_TEXT_EXTRACTION</span>
+                         <span>&gt; OCR_TEXT_EXTRACTION</span>
                          <span>{state.step === AppStep.TRANSCRIBING ? '[PROCESSING...]' : '[OK]'}</span>
                       </div>
                       <div className="flex justify-between">
-                         <span>> SEMANTIC_MAPPING</span>
+                         <span>&gt; SEMANTIC_MAPPING</span>
                          <span>{state.step === AppStep.CLASSIFYING ? '[PROCESSING...]' : (state.step === AppStep.SYNTHESIZING ? '[OK]' : '[WAITING]')}</span>
                       </div>
                     </div>
