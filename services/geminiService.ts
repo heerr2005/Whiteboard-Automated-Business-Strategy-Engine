@@ -11,14 +11,34 @@ import {
   StrategyResult 
 } from '../types';
 
-const apiKey = process.env.API_KEY || '';
+// Safely retrieve the API key to avoid "process is not defined" crashes in browser environments
+const getApiKey = (): string => {
+  try {
+    // Check for standard Node/Webpack process.env
+    if (typeof process !== 'undefined' && process.env?.API_KEY) {
+      return process.env.API_KEY;
+    }
+    // Check for Vite import.meta.env
+    // @ts-ignore
+    if (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_KEY) {
+      // @ts-ignore
+      return import.meta.env.VITE_API_KEY;
+    }
+  } catch (e) {
+    // Ignore errors during environment check
+    console.warn("Could not read environment variables safely.");
+  }
+  return '';
+};
+
+const apiKey = getApiKey();
 
 // Initialize specific models for different tasks
 // Using gemini-2.5-flash for vision (speed/cost efficiency) and gemini-3-pro-preview for complex reasoning
 const genAI = new GoogleGenAI({ apiKey });
 
 export const transcribeImage = async (base64Image: string): Promise<Snippet[]> => {
-  if (!apiKey) throw new Error("API Key is missing");
+  if (!apiKey) throw new Error("API Key is missing. Please check your environment configuration.");
 
   // Remove data URL prefix if present for the API call
   const base64Data = base64Image.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
