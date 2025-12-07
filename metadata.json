@@ -1,0 +1,5 @@
+{
+  "name": "Stratify - Whiteboard to Strategy",
+  "description": "Convert chaotic whiteboard photos into structured, execution-ready business strategies using Gemini 3 Pro multimodal reasoning.",
+  "requestFramePermissions": []
+}
